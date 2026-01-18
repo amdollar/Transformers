@@ -44,3 +44,19 @@ scores = Q @ K.T / np.sqrt(dk)
 # The sum of all output values equals 1.
 
 def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum(axis= -1, keepdims= True)
+
+attention_weight = softmax(scores)
+output = attention_weight @ V
+
+print(f'Attention Weight:  {attention_weight}')
+print(f'Output: {output}')
+
+# Attention Weight:  [[0.03311227 0.30064596 0.66624178]
+#  [0.00177041 0.16645139 0.8317782 ]
+#  [0.00211809 0.17576223 0.82211968]]
+
+# Output: [[2.23857661 2.72024632 2.59280449 2.61341319]
+#  [2.40491847 2.68355944 2.61215923 2.67293933]
+#  [2.39642155 2.68769535 2.61285533 2.67059946]]
