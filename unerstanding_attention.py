@@ -31,3 +31,16 @@ print(Q)
  [2.22309736 1.60593741 2.48421961 1.216907  ]
  [2.2889151  1.82863672 2.27573615 2.34214621]]'''
 
+# How much should I pay attention to each word?
+# Attention(Q, K, V) = softmax( QKᵀ / √dₖ ) V
+
+# Scaled dot product
+dk = K.shape[1]
+scores = Q @ K.T / np.sqrt(dk)
+
+# Softmax
+# It is especially important for multi-class classification problems.
+# Each output value lies between 0 and 1.
+# The sum of all output values equals 1.
+
+def softmax(x):
