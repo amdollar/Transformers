@@ -1,12 +1,15 @@
 import numpy as np
+import torch
+import math
 
 # Toy embedding (3 words, embedding_size= 4)
+# Words: "the", "cat", "sat"
 
-
+words = ["the", "cat", "sat"]
 X = np.array([
-    [1,0,0,1],
-    [0,2,0,2],
-    [1,1,1,1]
+    [1,0,0,1],      # embedding for "the"
+    [0,2,0,2],      # embedding for "cat"
+    [1,1,1,1]       # embedding for "sat"
 ])
 
 # Initilizing random weight metrics
@@ -60,3 +63,18 @@ print(f'Output: {output}')
 # Output: [[2.23857661 2.72024632 2.59280449 2.61341319]
 #  [2.40491847 2.68355944 2.61215923 2.67293933]
 #  [2.39642155 2.68769535 2.61285533 2.67059946]]
+
+
+# step 2 positional encoding:
+
+def positional_encoding(seq_len, d_model):
+    pe = np.zeros((seq_len, d_model))
+    position = np.arange(0, seq_len).reshape(-1, 1)
+    div_term = np.exp(np.arange(0, d_model, 2) * (-np.log(10000.0) / d_model))
+    
+    pe[:, 0::2] = np.sin(position * div_term)
+    pe[:, 1::2] = np.cos(position * div_term)
+    return pe
+
+pe = positional_encoding(3, 4)
+print(pe)
