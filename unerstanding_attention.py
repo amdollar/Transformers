@@ -78,3 +78,4 @@ def positional_encoding(seq_len, d_model):
 
 pe = positional_encoding(3, 4)
 print(pe)
+
